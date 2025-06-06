@@ -1,8 +1,11 @@
 """MCP server implementing JSON-RPC 2.0."""
 
 from typing import Any, Callable, Dict
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 from ..config.settings import settings
 from ..config.logging import get_logger
@@ -45,7 +48,15 @@ def create_app() -> FastAPI:
 
     app = FastAPI(title="MCP Payments Server", version="1.0.0")
 
+    frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
+    app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
+
     bearer = JWTBearer()
+
+    @app.get("/", response_class=HTMLResponse)
+    async def index() -> str:
+        with open(frontend_dir / "index.html", "r", encoding="utf-8") as f:
+            return f.read()
 
     @app.get("/health")
     async def health() -> Dict[str, str]:

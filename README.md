@@ -18,3 +18,4 @@ python -m app.main
 
 The server listens on `0.0.0.0:8000` by default and exposes a health check at `/health`.
 MCP JSON-RPC calls are handled via the `/rpc` endpoint.
+The built-in dashboard is served from `/` and can be used for basic payment and wallet operations.

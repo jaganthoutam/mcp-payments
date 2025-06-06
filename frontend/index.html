@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Payments Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>MCP Payments Dashboard</h1>
+    <section id="auth">
+        <h2>Authenticate</h2>
+        <input type="text" id="token" placeholder="JWT Token" size="50">
+    </section>
+    <section id="payments">
+        <h2>Create Payment</h2>
+        <form id="createPaymentForm">
+            <input type="number" step="0.01" min="0.01" name="amount" placeholder="Amount" required>
+            <select name="currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="INR">INR</option>
+                <option value="GBP">GBP</option>
+            </select>
+            <input type="text" name="method" placeholder="Method (card|bank|wallet|upi)" required>
+            <input type="text" name="customer_id" placeholder="Customer UUID" required>
+            <input type="text" name="idempotency_key" placeholder="Idempotency Key" required>
+            <button type="submit">Create</button>
+        </form>
+        <pre id="createPaymentResult"></pre>
+    </section>
+
+    <section id="wallet">
+        <h2>Wallet Balance</h2>
+        <button id="walletBalanceBtn">Get Balance</button>
+        <pre id="walletBalanceResult"></pre>
+    </section>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>
